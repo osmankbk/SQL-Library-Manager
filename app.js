@@ -1,9 +1,12 @@
 const express = require('express');
 const app = express();
 const { sequelize } = require('./models');
+const routes = require('./routes');
+
 
 app.set('view engin', 'pug');
 app.use('/static', express.static('public'));
+app.use(routes);
 
 app.use((req, res, next) => {
     const err = new Error('This page is not available');
