@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Book } = require('./models');
+const { Book } = require('../models');
 
 const asyncBubble = (cb) => {
     return async(req, res, next) => {
@@ -15,35 +15,35 @@ const asyncBubble = (cb) => {
 
 //Index page
 router.get('/', asyncBubble( async(req, res) => {
-    res.redirect("books/index");
+    res.redirect("/books");
 }));
 
 
 router.get('/books', asyncBubble(async(req, res) => {
     const book = await Book.findAll();
-    res.render("books/index", {});
+    res.render('index', {});
 }));
 
 //Create new book
 router.get('/books/new', asyncBubble(async(req, res) => {
-    res.render("books/new", {});
+    res.render('new-book', {book: {}, title: 'New Book'});
 }));
 
 router.post('/books/new', asyncBubble(async(req, res) => {
     const book = await Book.create(req.body);
-    res.redirect("/books/" + book.id, {});
+    res.redirect("/books/" + book.id);
 }));
 
 //Individual book by id
 router.get("/books/:id", asyncBubble(async(req, res) => {
     const book = await Book.findByPk(req.params.id);
-    res.render("books/indiv", {});
+    res.render('update-book', {});
 }));
 
 //Update book
 router.get("/books/:id/update", asyncBubble(async(req, res) => {
     const book = await Book.findByPk(req.params.id);
-    res.render("books/update", {book: book});
+    res.render('update-book', {book: book});
 }));
 
 router.post("/books/:id/update", asyncBubble(async(req, res) => {
@@ -56,13 +56,13 @@ router.post("/books/:id/update", asyncBubble(async(req, res) => {
 
 router.get("/books/:id/delete", asyncBubble(async(req, res) => {
     const book = await Book.findByPk(req.params.id);
-    res.render("books/delete", {book: book});
+    res.render('update-book', {book: book});
 }));
  
 router.post("/books/:id/delete", asyncBubble(async(req, res) => {
     const book = await Book.findByPk(req.params.id);
     await book.destroy();
-    res.redirect("/books/index");
+    res.redirect('/books/index');
 }));
 
 module.exports = router;

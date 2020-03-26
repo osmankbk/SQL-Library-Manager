@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 const { sequelize } = require('./models');
-const routes = require('./routes');
+const routes = require('./routes/books.js');
 
 
-app.set('view engin', 'pug');
+app.set('view engine', 'pug');
 app.use('/static', express.static('public'));
 app.use(routes);
 
