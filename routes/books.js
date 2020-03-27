@@ -20,8 +20,8 @@ router.get('/', asyncBubble( async(req, res) => {
 
 
 router.get('/books', asyncBubble(async(req, res) => {
-    const book = await Book.findAll();
-    res.render('index', {});
+    const books = await Book.findAll();
+    res.render('index', {books});
 }));
 
 //Create new book
@@ -29,9 +29,9 @@ router.get('/books/new', asyncBubble(async(req, res) => {
     res.render('new-book', {book: {}, title: 'New Book'});
 }));
 
-router.post('/books/new', asyncBubble(async(req, res) => {
-    const book = await Book.create(req.body);
-    res.redirect("/books/" + book.id);
+router.post('/', asyncBubble(async(req, res) => {
+    const books = await Book.create(req.body);
+    res.redirect("/books/" + book.id, {books});
 }));
 
 //Individual book by id
