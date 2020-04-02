@@ -5,7 +5,7 @@ block content
     h1  Update Book
     form
         p
-            label(for="title")  Title
+            label(for="title") Title
             input(name="title" type="text" id="title" value="")
         
         p
@@ -13,11 +13,11 @@ block content
             input(name="author" type="text" id="author" value="")
         
         p
-            label(for="genre")  Genre
+            label(for="genre") Genre
             input(name="genre" type="text" id="genre" value="Non-fiction")
         
         p
-            label(for="year")   Year
+            label(for="year") Year
             input(name="year" type="text" id="year" value="1988")
         
         p
@@ -25,7 +25,7 @@ block content
         
     form(method="post" action="/books/" onsubmit="return confirm('Do you really want to delete this book?')")
         p
-            a.button(href="all_books.html") Cancel
+            a.button(href="/books/") Cancel
         
         p
             input(type="submit" value="Delete Book")

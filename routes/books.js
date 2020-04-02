@@ -26,12 +26,14 @@ router.get('/books', asyncBubble(async(req, res) => {
 
 //Create new book
 router.get('/books/new', asyncBubble(async(req, res) => {
+    console.log(req.boody);
     res.render('new-book', {book: {}, title: 'New Book'});
 }));
 
 router.post('/', asyncBubble(async(req, res) => {
-    const books = await Book.create(req.body);
-    res.redirect("/books/" + book.id, {books});
+    const book = await Book.create(req.body);
+    console.log(req.body);
+    res.redirect("/books" + book.id, {book, title: book.title});
 }));
 
 //Individual book by id
