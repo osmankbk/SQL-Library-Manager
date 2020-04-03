@@ -30,10 +30,10 @@ router.get('/books/new', asyncBubble(async(req, res) => {
     res.render('new-book', {book: {}, title: 'New Book'});
 }));
 
-router.post('/', asyncBubble(async(req, res) => {
+router.post('/books', asyncBubble(async(req, res) => {
     const book = await Book.create(req.body);
     console.log(req.body);
-    res.redirect("/books", {book, title: book.title});
+    res.redirect("/books");
 }));
 
 //Individual book by id
@@ -48,10 +48,10 @@ router.get("/books/:id", asyncBubble(async(req, res) => {
     res.render('update-book', {book});
 }));
 
-router.post("/books/:id", asyncBubble(async(req, res) => {
+router.post("/books", asyncBubble(async(req, res) => {
     const book = await Book.findByPk(req.params.id);
     await book.update(req.body);
-    res.render("/books/" + book.id);
+    res.render("/books");
 }));
 
 //DELETE
