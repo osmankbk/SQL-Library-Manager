@@ -18,8 +18,12 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
     res.locals.error = err;
     res.status(err.status);
-    res.render('error');
-    console.log(err)
+    if(err.status === 404) {
+        res.render('page-not-found');
+        console.log(err.message)
+    } else {
+        res.render('error');
+    }
 });
 
 

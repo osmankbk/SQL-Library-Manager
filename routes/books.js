@@ -42,14 +42,14 @@ router.get("/books/:id", asyncBubble(async(req, res) => {
     res.render('update-book', {book});
 }));
 
-router.post("/books/", asyncBubble(async(req, res) => {
+router.post("/books/:id", asyncBubble(async(req, res) => {
     const book = await Book.findByPk(req.params.id);
     await book.update(req.body);
     res.redirect("/books/");
 }));
 
 //DELETE
-router.post("/books/:id", asyncBubble(async(req, res) => {
+router.post("/books/:id/delete", asyncBubble(async(req, res) => {
     const book = await Book.findByPk(req.params.id);
     await book.destroy();
     res.redirect('/books/');
