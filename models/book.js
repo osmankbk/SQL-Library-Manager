@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
             validate: {
-                notNull: {
+                notEmpty: {
                     msg: 'Please Enter a title!'
                 },
             },
@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
             validate: {
-                notNull: {
+                notEmpty: {
                     msg: 'Please Enter an Author!',
                 },
             },
