@@ -31,9 +31,20 @@ router.get('/books/new', asyncBubble(async(req, res) => {
 }));
 
 router.post('/books', asyncBubble(async(req, res) => {
-    const book = await Book.create(req.body);
+    let book;
+    try {
+        book = await Book.create(req.body);
     console.log(req.body);
     res.redirect("/books/");
+    } catch(error) {
+        if(error.name === "SequelizeValidationError"){
+            book = await Book.build(req.body);
+            res.render('new-book', {book, errors: error.errors, title: "New Book"} )
+        } else {
+            throw error;
+        }
+    }
+    
 }));
 
 //Update book
