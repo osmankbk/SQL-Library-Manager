@@ -34,8 +34,7 @@ router.post('/books', asyncBubble(async(req, res) => {
     let book;
     try {
         book = await Book.create(req.body);
-    console.log(req.body);
-    res.redirect("/books/");
+        res.redirect("/books/");
     } catch(error) {
         if(error.name === "SequelizeValidationError"){
             book = await Book.build(req.body);
