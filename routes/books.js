@@ -49,7 +49,12 @@ router.post('/books', asyncBubble(async(req, res) => {
 //Update book
 router.get("/books/:id", asyncBubble(async(req, res) => {
     const book = await Book.findByPk(req.params.id);
-    res.render('update-book', {book});
+    if(book){
+        res.render('update-book', {book});
+    } else {
+        res.render('error');
+    }
+    
 }));
 
 router.post("/books/:id", asyncBubble(async(req, res) => {
