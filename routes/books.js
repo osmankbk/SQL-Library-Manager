@@ -18,9 +18,23 @@ router.get('/', asyncBubble( async(req, res) => {
     res.redirect("/books");
 }));
 
-
+//First 7
 router.get('/books', asyncBubble(async(req, res) => {
-    const books = await Book.findAll();
+    const books = await Book.findAll({limit: 7});
+    res.render('index', {books});
+}));
+
+//Next 7
+router.get('/books/next', asyncBubble(async(req, res) => {
+    const books = await Book.findAll({limit: 7,
+    offset: 7});
+    res.render('index', {books});
+}));
+
+//prev
+router.get('/books/prev', asyncBubble(async(req, res) => {
+    const books = await Book.findAll({limit: 7,
+    offset: -7});
     res.render('index', {books});
 }));
 
