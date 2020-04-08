@@ -61,8 +61,8 @@ router.post("/books/:id", asyncBubble(async(req, res) => {
     let book;
     try {
         book = await Book.findByPk(req.params.id);
-        if (book){
-            book = await Book.update(req.body);
+        if(book){
+            await book.update(req.body);
             res.redirect("/books/");
         } else {
             res.render('error');
