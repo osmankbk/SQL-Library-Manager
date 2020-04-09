@@ -20,6 +20,7 @@ router.get('/', asyncBubble( async(req, res) => {
 
 //First 7
 router.get('/books', asyncBubble(async(req, res) => {
+
     const books = await Book.findAll({limit: 7});
     res.render('index', {books});
 }));
@@ -38,9 +39,23 @@ router.get('/books/prev', asyncBubble(async(req, res) => {
     res.render('index', {books});
 }));
 
+//Search
+
+/*router.post('/search', asyncBubble(async(req, res) => {
+    const container = [];
+    const search = req.body.search.toLowerCase();
+    const books = await Book.findAll();
+    books.forEach((book, i) => {
+        if(book[i].title.toLowerCase().includes(search)) {
+            container.push(book[i]);
+        }
+    });
+    res.render('index', {container})
+}));*/
+
 //Create new book
 router.get('/books/new', asyncBubble(async(req, res) => {
-    console.log(req.boody);
+    console.log(req.body.search);
     res.render('new-book', {book: {}, title: 'New Book'});
 }));
 
