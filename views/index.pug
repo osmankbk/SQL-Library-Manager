@@ -5,6 +5,10 @@ block content
 	h1 Books
 	p
 		a.button(href="/books/new") Create New Book
+	p
+		a.button(href="/books/prev") Prev
+	p
+		a.button(href="/books/next") Next
 	form(method="post" action="/search")
 		input(name="search" type="text" id="search")
 	table
@@ -22,3 +26,5 @@ block content
 					td #{book.author}
 					td #{book.genre}
 					td #{book.year}
+		
+		
