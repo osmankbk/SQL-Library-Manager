@@ -1,14 +1,16 @@
 const express = require('express');
 const app = express();
+const cookieParser = require('cookie-parser');
 const { sequelize } = require('./models');
 const routes = require('./routes/books.js');
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.set('view engine', 'pug');
 app.use('/static', express.static('public'));
 app.use(routes);
-
+ 
 app.use((req, res, next) => {
     const err = new Error('This page is not available');
     err.status = 404;

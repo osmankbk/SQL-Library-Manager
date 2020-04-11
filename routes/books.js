@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Book } = require('../models');
+const { Op } = require('sequelize');
 
 const asyncBubble = (cb) => {
     return async(req, res, next) => {
@@ -13,16 +14,41 @@ const asyncBubble = (cb) => {
     }
 }
 
+
 //Index page
 router.get('/', asyncBubble( async(req, res) => {
     res.redirect("/books");
 }));
 
-//First 7
-router.get('/books', asyncBubble(async(req, res) => {
-
-    const books = await Book.findAll({limit: 7});
-    res.render('index', {books});
+//All Books & search
+router.get('/books/', asyncBubble(async(req, res) => {
+    const toSearch = req.query.search;
+    console.log(toSearch);
+    if(toSearch) {
+        const books = await Book.findAll({
+            where: {
+                [Op.or]: {
+                    title: {
+                        [Op.like]: `%${toSearch}%`,
+                    },
+                    author: {
+                        [Op.like]: `%${toSearch}%`,
+                    },
+                    genre: {
+                        [Op.like]: `%${toSearch}%`,
+                    },
+                    year: {
+                        [Op.like]: `%${toSearch}%`,
+                    }
+                }
+            }
+        });
+        res.render('index', {books});
+    } else {
+        const books = await Book.findAll();
+        res.render('index', {books});
+    }
+  
 }));
 
 //Next 7
@@ -39,23 +65,8 @@ router.get('/books/prev', asyncBubble(async(req, res) => {
     res.render('index', {books});
 }));
 
-//Search
-
-/*router.post('/search', asyncBubble(async(req, res) => {
-    const container = [];
-    const search = req.body.search.toLowerCase();
-    const books = await Book.findAll();
-    books.forEach((book, i) => {
-        if(book[i].title.toLowerCase().includes(search)) {
-            container.push(book[i]);
-        }
-    });
-    res.render('index', {container})
-}));*/
-
 //Create new book
 router.get('/books/new', asyncBubble(async(req, res) => {
-    console.log(req.body.search);
     res.render('new-book', {book: {}, title: 'New Book'});
 }));
 
