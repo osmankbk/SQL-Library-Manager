@@ -23,7 +23,10 @@ router.get('/', asyncBubble( async(req, res) => {
 //All Books & search
 router.get('/books/', asyncBubble(async(req, res) => {
     const toSearch = req.query.search;
-    console.log(toSearch);
+    let page = req.query.page;
+    page= parseInt(page);
+    const limit = 4;
+    const offSet = (page - 1) * limit;
     if(toSearch) {
         const books = await Book.findAll({
             where: {
@@ -45,14 +48,15 @@ router.get('/books/', asyncBubble(async(req, res) => {
         });
         res.render('index', {books});
     } else {
-        const books = await Book.findAll();
-        res.render('index', {books});
+        const books = await Book.findAll({limit, offset: 4});
+        const totalPages = Math.ceil(books.count / limit);
+        res.render('index', {books, totalPages, page});
     }
   
 }));
 
 //Next 7
-router.get('/books/next', asyncBubble(async(req, res) => {
+/*router.get('/books/next', asyncBubble(async(req, res) => {
     const books = await Book.findAll({limit: 7,
     offset: 7});
     res.render('index', {books});
@@ -63,7 +67,7 @@ router.get('/books/prev', asyncBubble(async(req, res) => {
     const books = await Book.findAll({limit: 7,
     offset: -7});
     res.render('index', {books});
-}));
+}));*/
 
 //Create new book
 router.get('/books/new', asyncBubble(async(req, res) => {
