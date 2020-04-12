@@ -50,7 +50,7 @@ router.get('/books/', asyncBubble(async(req, res) => {
     } else {
         const books = await Book.findAll({limit, offset: 4});
         const totalPages = Math.ceil(books.count / limit);
-        res.render('index', {books, totalPages, page});
+        res.render('index', {books, totalPages});
     }
   
 }));

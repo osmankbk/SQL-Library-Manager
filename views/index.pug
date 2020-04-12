@@ -24,5 +24,5 @@ block content
 					td #{book.genre}
 					td #{book.year} 
 	p
-		each pag in totalPages
-			a.button(href='#')= pag
+		each pag, i in totalPages
+			a.button(href='#')= pag + i
