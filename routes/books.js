@@ -24,11 +24,13 @@ router.get('/', asyncBubble( async(req, res) => {
 router.get('/books/', asyncBubble(async(req, res) => {
     const toSearch = req.query.search;
     let page = req.query.page;
-    page= parseInt(page);
     const limit = 4;
     const offSet = (page - 1) * limit;
     if(toSearch) {
-        const books = await Book.findAll({
+        const books = await Book.findAndCountAll({
+            order: [["year", "ASC"]],
+            limit,
+            offset: 4,
             where: {
                 [Op.or]: {
                     title: {
@@ -48,9 +50,16 @@ router.get('/books/', asyncBubble(async(req, res) => {
         });
         res.render('index', {books});
     } else {
-        const books = await Book.findAll({limit, offset: 4});
+        const books = await Book.findAndCountAll({
+            order: [["year", "ASC"]],
+            limit, 
+            offset: 4,
+        });
         const totalPages = Math.ceil(books.count / limit);
-        res.render('index', {books, totalPages});
+        console.log(books.rows);
+        console.log(books.count);
+        console.log(totalPages);
+        res.render('index', {books, totalPages, page});
     }
   
 }));
