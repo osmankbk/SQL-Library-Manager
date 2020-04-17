@@ -1,4 +1,4 @@
 - let num = 1
 	while num <= totalPages
-		p
-			a.button(href=`/books/?page=${num}`)= num++
+		span
+			a.button(href=`/books/?page=${num}`, class='pagination')= num++
