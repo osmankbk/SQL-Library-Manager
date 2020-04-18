@@ -67,7 +67,7 @@ router.get('/books/new', asyncBubble(async(req, res) => {
     res.render('new-book', {book: {}, title: 'New Book'});
 }));
 
-router.post('/books', asyncBubble(async(req, res) => {
+router.post('/new', asyncBubble(async(req, res) => {
     let book;
     try {
         book = await Book.create(req.body);
