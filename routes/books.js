@@ -3,6 +3,7 @@ const router = express.Router();
 const { Book } = require('../models');
 const { Op } = require('sequelize');
 
+//A DRY try and catch function
 const asyncBubble = (cb) => {
     return async(req, res, next) => {
         try {
@@ -23,6 +24,7 @@ router.get('/', asyncBubble( async(req, res) => {
 //All Books & search
 router.get('/books/', asyncBubble(async(req, res) => {
     const toSearch = req.query.search;
+    //This runs when the search input is used
     if(toSearch) {
         const books = await Book.findAndCountAll({
             order: [["year", "ASC"]],
@@ -44,9 +46,9 @@ router.get('/books/', asyncBubble(async(req, res) => {
             }
         });
         res.render('index', {books});
+    //& this when the page loads or pagination button is clicked
     } else {
     let page = req.query.page || 1;
-    //page = parseInt(page);
     let limit = 5;
     let offset = (page - 1) * limit;
         const books = await Book.findAndCountAll({
@@ -55,28 +57,10 @@ router.get('/books/', asyncBubble(async(req, res) => {
             offset,
         });
         let totalPages = Math.ceil(books.count / limit);
-        
-        /*console.log(books.rows);
-        console.log(books.count);*/
-        console.log(totalPages);
-        res.render('index', {books, totalPages, page});
+        res.render('index', {books, totalPages});
     }
   
 }));
-
-//Next 7
-/*router.get('/books/next', asyncBubble(async(req, res) => {
-    const books = await Book.findAll({limit: 7,
-    offset: 7});
-    res.render('index', {books});
-}));
-
-//prev
-router.get('/books/prev', asyncBubble(async(req, res) => {
-    const books = await Book.findAll({limit: 7,
-    offset: -7});
-    res.render('index', {books});
-}));*/
 
 //Create new book
 router.get('/books/new', asyncBubble(async(req, res) => {

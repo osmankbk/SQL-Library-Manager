@@ -1,3 +1,12 @@
+/******************************************
+Treehouse Techdegree:
+FSJS project 8 - SQL Library Manager
+******************************************/
+
+//Title: Treehouse Project 8
+//Project: SQL Library Manager
+//Goal: exceed expectation
+
 const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');

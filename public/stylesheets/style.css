@@ -97,5 +97,6 @@ input[type=text] {
 }
 
 span a.button {
+  margin-top: 10px;
   margin: 5px;
 }

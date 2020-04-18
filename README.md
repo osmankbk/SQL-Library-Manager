@@ -1,2 +1,3 @@
 # TechDegree-PROJECT-8
  SQL Library Manager
+A library database Application that list, create, upate and delete books. Sequelize, Sqlite3 express and pug were used in building this application. I Used Pug to utilized the data from the database to display the various pages in the browser and routes to handle post and get requests. "npm install" is needed in order to download the dependencies and run this applicaion on a local.
