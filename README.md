@@ -5,7 +5,5 @@ A library database Application that list, create, upate and delete books, using 
 Download project files, and run "npm install" in root folder to install dependencies. Run "npm start" to start and view project local server.
 
 ![screen shot showcase of live version](https://github.com/osmankbk/SQL-Library-Manager/blob/master/images/ss1.png)
-
 ![screen shot showcase of live version](https://github.com/osmankbk/SQL-Library-Manager/blob/master/images/ss2.png)
-
 ![screen shot showcase of live version](https://github.com/osmankbk/SQL-Library-Manager/blob/master/images/ss3.png)
